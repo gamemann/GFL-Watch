@@ -42,6 +42,8 @@ func (cfg *Config) SetDefaults() {
 	cfg.DefMaxFails = 10
 	cfg.DefMaxRestarts = 2
 	cfg.DefRestartInt = 120
+	cfg.DefWaitAfterRestart = 10
 	cfg.DefReportOnly = false
 	cfg.DefA2STimeout = 1
+	// cfg.DefRconPassword = ""
 }
