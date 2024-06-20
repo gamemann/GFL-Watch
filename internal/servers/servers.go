@@ -105,7 +105,7 @@ func handleFail(srv *config.Server, timer *time.Ticker, fails *int, restarts *in
 	}
 
 	// Check to see if we want to restart the server.
-	if *fails >= srv.MaxFails && *restarts < srv.MaxRestarts && *nextscan < time.Now().Unix() {
+	if *fails >= srv.MaxFails && (*restarts < srv.MaxRestarts || srv.MaxRestarts == -1) && *nextscan < time.Now().Unix() {
 		if cfg.DebugLevel > 1 {
 			fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] kill + start")
 		}
@@ -135,10 +135,11 @@ func handleFail(srv *config.Server, timer *time.Ticker, fails *int, restarts *in
 
 			pterodactyl.StartServer(cfg, srv.UID)
 
+			waitAfterRestart := time.Duration(srv.WaitAfterRestart) * time.Second
 			if cfg.DebugLevel > 1 {
-				fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] wait 10s for server to start restarting")
+				fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] wait " + waitAfterRestart.String() + " for server to start restarting")
 			}
-			time.Sleep(10 * time.Second)
+			time.Sleep(waitAfterRestart)
 		}
 
 		// Increment restarts count.
