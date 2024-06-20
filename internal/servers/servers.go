@@ -137,7 +137,7 @@ func handleFail(srv *config.Server, timer *time.Ticker, fails *int, restarts *in
 
 			waitAfterRestart := time.Duration(srv.WaitAfterRestart) * time.Second
 			if cfg.DebugLevel > 1 {
-				fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] wait " + waitAfterRestart.String() + " for server to start restarting")
+				fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] wait " + waitAfterRestart.String() + " for server to begin restarting")
 			}
 			time.Sleep(waitAfterRestart)
 		}
