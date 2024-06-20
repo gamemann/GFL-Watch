@@ -127,7 +127,7 @@ func handleFail(srv *config.Server, timer *time.Ticker, fails *int, restarts *in
 
 			pterodactyl.KillServer(cfg, srv.UID)
 
-			//						time.Sleep(5 * time.Second)
+			time.Sleep(2 * time.Second)
 
 			if cfg.DebugLevel > 1 {
 				fmt.Println("[D2][" + srv.IP + ":" + strconv.Itoa(srv.Port) + "] start")
